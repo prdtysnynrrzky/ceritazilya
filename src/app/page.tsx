@@ -5,7 +5,6 @@ import Hero from "@/components/Hero";
 import Timeline from "@/components/Timeline";
 import Gallery from "@/components/Gallery";
 import Notes from "@/components/Notes";
-import MusicPlayer from "@/components/MusicPlayer";
 
 export default function Home() {
   return (
@@ -28,7 +27,6 @@ export default function Home() {
       {/* Content */}
       <div className="relative z-10">
         <Navbar />
-        <MusicPlayer />
         <Hero />
         <div className="space-y-10 md:space-y-14">
           <Timeline />
