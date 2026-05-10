@@ -3,52 +3,62 @@
 import { motion } from "framer-motion";
 
 const notes = [
-  "aku masih inget cara kamu ketawa waktu itu.",
-  "jalanan malam selalu terasa lebih cepat sama kamu.",
-  "kadang obrolan random justru paling bikin tenang.",
-  "ternyata nyaman bisa sesederhana itu.",
+  "padahal hampir tiap hari ketemu, tapi tetep aja pas pulang rasanya masih pengen bareng lagi.",
+
+  "beberapa momen bahkan nggak ada rencana sama sekali, tapi sekarang malah jadi yang paling sering diingat.",
+
+  "kadang niatnya cuma lihat satu foto, ujung-ujungnya malah nostalgia lama di galeri.",
+
+  "ternyata banyak kenangan yang datang dari hari-hari yang dulu terasa biasa aja.",
 ];
 
 export default function Notes() {
   return (
     <section id="notes" className="px-6 md:px-12 py-28">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         {/* heading */}
         <div className="text-center mb-20">
           <p className="text-sm tracking-[0.3em] uppercase text-neutral-500 mb-4">
             catatan
           </p>
 
-          <h2 className="text-4xl md:text-5xl">catatan kecil</h2>
+          <h2 className="text-4xl md:text-5xl">
+            beberapa hal yang masih keingat
+          </h2>
 
           <p className="text-neutral-400 mt-6">
-            beberapa hal sederhana yang masih diingat.
+            sebagian kecil dari banyak hal
+            <br />
+            yang pernah lewat begitu aja.
           </p>
         </div>
 
-        {/* notes grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* notes */}
+        <div className="space-y-6">
           {notes.map((note, index) => (
             <motion.div
               key={index}
               initial={{
                 opacity: 0,
-                y: 30,
+                y: 20,
               }}
               whileInView={{
                 opacity: 1,
                 y: 0,
               }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              whileHover={{
-                y: -4,
+              transition={{
+                duration: 0.6,
               }}
-              className="rounded-[28px] border border-white/10 bg-white/3 backdrop-blur-md p-8 transition duration-500 hover:bg-white/5"
+              viewport={{ once: true }}
+              className="
+                border border-white/10
+                rounded-[28px]
+                bg-white/[0.03]
+                backdrop-blur-md
+                p-8
+              "
             >
               <p className="text-lg leading-relaxed text-neutral-200">{note}</p>
-
-              <div className="mt-10 w-10 h-px bg-white/10" />
             </motion.div>
           ))}
         </div>

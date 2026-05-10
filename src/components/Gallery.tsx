@@ -8,22 +8,33 @@ const photos = [
   {
     src: "/gallery/1.jpg",
     video: "/gallery/1.mp4",
-    caption: "jalanan malam yang selalu bikin tenang..",
+    poster: "/gallery/1.jpg",
+    caption:
+      "awalnya cuma muter malem tanpa tujuan, ternyata malah jadi awal dari semuanya.",
   },
+
   {
     src: "/gallery/2.jpg",
     video: "/gallery/2.mp4",
-    caption: "hal kecil yang selalu bikin senyum.",
+    poster: "/gallery/2.jpg",
+    caption:
+      "foto studio pertama, dan lucunya langsung bareng orang yang paling bikin bahagia.",
   },
+
   {
     src: "/gallery/3.jpg",
     video: "/gallery/3.mp4",
-    caption: "terima kasih, selalu ada.",
+    poster: "/gallery/3.jpg",
+    caption:
+      "makasih udah selalu ada di hari-hari yang sekarang jadi kebiasaan.",
   },
+
   {
     src: "/gallery/4.jpg",
     video: "/gallery/4.mp4",
-    caption: "bersama, untuk waktu yang lama.",
+    poster: "/gallery/4.jpg",
+    caption:
+      "entah kenapa setiap lihat foto ini, rasanya pengen bareng kamu lebih lama lagi.",
   },
 ];
 
@@ -37,6 +48,7 @@ export default function Gallery() {
     if (video) {
       video.currentTime = 0;
       video.volume = 0.6;
+
       video.play().catch(() => {});
     }
   };
@@ -54,14 +66,14 @@ export default function Gallery() {
 
     if (!video) return;
 
-    // pause video lain
+    // pause others
     videoRefs.current.forEach((v, index) => {
       if (v && index !== i) {
         v.pause();
       }
     });
 
-    // toggle current
+    // toggle
     if (activeMobile === i) {
       video.pause();
       setActiveMobile(null);
@@ -69,44 +81,60 @@ export default function Gallery() {
       video.currentTime = 0;
       video.volume = 0.6;
 
-      video.play().catch(() => {});
       setActiveMobile(i);
+
+      video.play().catch(() => {});
     }
   };
 
   return (
-    <section id="gallery" className="px-6 md:px-12 py-28">
+    <section id="gallery" className="px-6 md:px-12 py-32">
       <div className="max-w-6xl mx-auto">
         {/* heading */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <p className="text-sm tracking-[0.3em] uppercase text-neutral-500 mb-4">
             gallery
           </p>
 
-          <h2 className="text-4xl md:text-5xl">beberapa foto</h2>
+          <h2 className="text-4xl md:text-5xl">beberapa foto kita</h2>
 
           <p className="text-neutral-400 mt-6">
-            beberapa momen yang ingin terus disimpan.
+            sebagian diambil random,
+            <br />
+            sebagian lagi memang sengaja disimpan.
           </p>
         </div>
 
-        {/* grid */}
+        {/* gallery */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {photos.map((photo, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
+              initial={{
+                opacity: 0,
+                y: 40,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.7,
+              }}
               viewport={{ once: true }}
+              className={i === 0 || i === 3 ? "md:col-span-2" : ""}
             >
               <div
-                className="relative aspect-[5/7] overflow-hidden rounded-4xl group"
+                className={`
+                  relative overflow-hidden group
+                  ${i === 0 || i === 3 ? "aspect-[16/8]" : "aspect-[5/7]"}
+                  rounded-[32px]
+                `}
                 onMouseEnter={() => handleEnter(i)}
                 onMouseLeave={() => handleLeave(i)}
                 onClick={() => handleMobile(i)}
               >
-                {/* IMAGE */}
+                {/* image */}
                 <Image
                   src={photo.src}
                   alt="memory"
@@ -126,8 +154,10 @@ export default function Gallery() {
                   `}
                 />
 
-                {/* VIDEO */}
+                {/* video */}
                 <video
+                  preload="metadata"
+                  poster={photo.poster}
                   ref={(el) => {
                     videoRefs.current[i] = el;
                   }}
@@ -135,7 +165,9 @@ export default function Gallery() {
                   loop
                   playsInline
                   className={`
-                    absolute inset-0 w-full h-full object-cover
+                    absolute inset-0
+                    w-full h-full
+                    object-cover
                     transition duration-500 ease-out
 
                     group-hover:opacity-100
@@ -172,7 +204,7 @@ export default function Gallery() {
                     }
                   `}
                 >
-                  <p className="text-white text-sm leading-relaxed">
+                  <p className="text-white text-sm md:text-base leading-relaxed max-w-md">
                     {photo.caption}
                   </p>
                 </div>

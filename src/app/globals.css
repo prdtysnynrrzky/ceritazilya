@@ -29,7 +29,10 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px
+  );
   background-size: 4px 4px;
   pointer-events: none;
   z-index: 0;
@@ -44,7 +47,26 @@ body::before {
 
 /* Selection */
 ::selection {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Floating background */
+@keyframes floatBg {
+  0% {
+    transform: scale(1) translateY(0px);
+  }
+
+  50% {
+    transform: scale(1.03) translateY(-10px);
+  }
+
+  100% {
+    transform: scale(1) translateY(0px);
+  }
+}
+
+.float-bg {
+  animation: floatBg 18s ease-in-out infinite;
 }
 
 /* Smooth fade */
@@ -57,6 +79,7 @@ body::before {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
